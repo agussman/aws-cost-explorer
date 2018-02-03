@@ -2,7 +2,6 @@
 
 import boto3
 import datetime
-import pprint
 import re
 
 from email.mime.text import MIMEText
@@ -68,8 +67,6 @@ def lambda_handler(event, context):
 
 
 def send_email(month, attachment):
-    # attachment code from: https://gist.github.com/yosemitebandit/2883593
-
     msg = MIMEMultipart()
     msg['From']  = "Aaron Gussman <aaron.gussman@digitalglobe.com>"
     msg['To'] = "aaron.gussman@digitalglobe.com"
