@@ -1,4 +1,8 @@
+# Overview
 
+A simple Python 3 script to run via AWS Lambda to report last month's billing broken down by Tag.
+
+# Setup
 
 Creating a python3 virtualenv:
 ```
@@ -6,6 +10,54 @@ $ which python3
 /usr/local/bin/python3
 $ mkvirtualenv --python=/usr/local/bin/python3 aws-cost-explorer
 ```
+
+# Getting the Data
+
+Getting the data is pretty straigtforward:
+
+```
+    response = client.get_cost_and_usage(
+        TimePeriod={
+            'Start': start,
+            'End':  end
+        },
+        Granularity='MONTHLY',
+        Metrics=['BlendedCost'],
+        GroupBy=[
+            {
+                'Type': 'TAG',
+                'Key': 'Project'
+            },
+        ]
+    )
+```
+
+Our AWS account has (most) every thing marked with a customer `Project` Tag. I want the results grouped by that so our finance team can track expenditures appropriately.
+
+The part of the response we care about looks like this (`'Amount'` has been redacted but they're `float` values):
+```
+'ResultsByTime': [{'Estimated': True,
+                    'Groups': [{'Keys': ['Project$'],
+                                'Metrics': {'BlendedCost': {'Amount': '<FLOAT>',
+                                                            'Unit': 'USD'}}},
+                               {'Keys': ['Project$Allegro'],
+                                'Metrics': {'BlendedCost': {'Amount': '<FLOAT>',
+                                                            'Unit': 'USD'}}},
+                               {'Keys': ['Project$ExtraLife'],
+                                'Metrics': {'BlendedCost': {'Amount': '<FLOAT>',
+                                                            'Unit': 'USD'}}},
+                               {'Keys': ['Project$HG Internal'],
+                                'Metrics': {'BlendedCost': {'Amount': '<FLOAT>',
+                                                            'Unit': 'USD'}}},
+                               {'Keys': ['Project$Mercury'],
+                                'Metrics': {'BlendedCost': {'Amount': '<FLOAT>',
+                                                            'Unit': 'USD'}}},
+                               ...
+```
+
+Note that the `Keys` value is of the form `TAG$VALUE` and that anything without a `Project` tag shows up under the
+first empty value. We're going to clean this up before reporting it in our .tsv.
+
 
 # AWS
 
