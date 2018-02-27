@@ -61,7 +61,9 @@ The part of the response we care about looks like this (`'Amount'` has been reda
 ```
 
 Note that the `Keys` value is of the form `TAG$VALUE` and that anything without a `Project` tag shows up under the
-first empty value. We're going to clean this up before reporting it in our .tsv.
+first empty value. We're going to clean this up before reporting it in our `.tsv`.
+
+After reformatting the data, we email it using AWS SES (see [Amazon SES Quick Start](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/quick-start.html) for instructions on enabling SES and creating an authorized email endpoint). Because we're including a file attachment, we need to create an email using `MIMEMultipart()`.
 
 
 # AWS
