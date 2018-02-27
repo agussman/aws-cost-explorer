@@ -12,6 +12,7 @@ from botocore.exceptions import ClientError
 
 
 def lambda_handler(event, context):
+    # Create a Cost Explorer client
     client = boto3.client('ce')
 
     # Set time range to cover the last full calendar month
@@ -84,6 +85,7 @@ def send_email(month, attachment):
     part.add_header('Content-Disposition', 'attachment', filename="AWS-MonthlyCostByProject-{}.tsv".format(month))
     msg.attach(part)
 
+    # Create an AWS Simple Email Service (SES) client
     client = boto3.client('ses')
 
     try:
