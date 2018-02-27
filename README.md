@@ -9,12 +9,17 @@ Creating a python3 virtualenv:
 $ which python3
 /usr/local/bin/python3
 $ mkvirtualenv --python=/usr/local/bin/python3 aws-cost-explorer
+$ pip install boto3
 ```
 
 # Getting the Data
 
-Getting the data is pretty straigtforward:
+Getting the data is pretty straigtforward. Create a Cost Explorer client:
+```
+client = boto3.client('ce')
+```
 
+Query for the cost data for the time period defined by `start` and `end`:
 ```
     response = client.get_cost_and_usage(
         TimePeriod={
@@ -153,7 +158,7 @@ Create a new rule
   Schedule expression: `cron(0 0 3 * ? *)`  <- Syntax on this is a little wonky... need to have `?` for Day-of-month or Day-of-week
 
 
-#References
+# References
 
 * [AWS Cost Explorer API](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-explorer-api.html)
 * [Boto 3 Docs on CostExplorer](http://boto3.readthedocs.io/en/latest/reference/services/ce.html)
