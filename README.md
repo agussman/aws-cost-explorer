@@ -149,9 +149,11 @@ Paste the contents of `generate_report.py` into the `lambda_function` tab
 Create a test, using Hello World as a template
 (we're not actually using the contents so NBD)
 
-Run the test; it should report success and the billing output
+Run the test; it should report success and the billing output!
 
 ## Add Triggers
+
+In order to schedule the function to run automatically each month, we create a Trigger in CloudWatch. We will schedule it to run at midnight on the third of each month just in cause there is some latency is AWS aggregating the billing data (note that that is pure speculative paranoia on my part).
 
 * CloudWatch Events
 * Configure triggers
