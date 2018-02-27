@@ -39,7 +39,7 @@ Query for the cost data for the time period defined by `start` and `end`:
 
 Our AWS account has (most) every thing marked with a customer `Project` Tag. I want the results grouped by that so our finance team can track expenditures appropriately.
 
-The part of the response we care about looks like this (`'Amount'` has been redacted but they're `float` values):
+The part of the response we care about looks like the below snippet (`'Amount'` has been redacted but they're `float` values):
 ```
 'ResultsByTime': [{'Estimated': True,
                     'Groups': [{'Keys': ['Project$'],
@@ -70,24 +70,24 @@ After reformatting the data, we email it using AWS SES (see [Amazon SES Quick St
 
 ## Create the Lambda function
 
-Lambda > Functions > Create function
-Name: monthlyBillingEmail
-Runtime: Python 3.6
-Role: Create a custom role
+* Lambda > Functions > Create function
+* Name: monthlyBillingEmail
+* Runtime: Python 3.6
+* Role: Create a custom role
 
-IAM Role: Create a new IAM Role
-Role Name: lambda_send_billing_email
+* IAM Role: Create a new IAM Role
+* Role Name: lambda_send_billing_email
 
 Create Function
 
 ## Creating IAM permissions
 
-Create a Policy that allows access to the cost explorer API:
+Create a Policy that allows access to the Cost Explorer API:
 
-IAM > Policies > Create policy
-Service: Cost Explorer Service
-Actions: All
-Name: allowCostExplorerRead
+* IAM > Policies > Create policy
+* Service: Cost Explorer Service
+* Actions: All
+* Name: allowCostExplorerRead
 
 ```
 {
@@ -103,12 +103,12 @@ Name: allowCostExplorerRead
 }
 ```
 
+Create another Policy that allows sending email over SES:
 
-
-IAM > Policies > Create new 
-Service: SES
-Write: SendEmail, SendRawEmail
-Name: allowSESSendEmail
+* IAM > Policies > Create new 
+* Service: SES
+* Write: SendEmail, SendRawEmail
+* Name: allowSESSendEmail
 
 ```
 {
@@ -129,8 +129,8 @@ Name: allowSESSendEmail
 
 Bundle these Policies into a Role:
 
-IAM > Roles > Search "lambda_send_billing_email"
-Attach policy:
+* IAM > Roles > Search "lambda_send_billing_email"
+* Attach policy:
  - [x] allowCostExplorerRead
  - [x] allowSESSendEmail
 
