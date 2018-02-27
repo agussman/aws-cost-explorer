@@ -68,6 +68,8 @@ After reformatting the data, we email it using AWS SES (see [Amazon SES Quick St
 
 # AWS
 
+Log into the AWS Console to create the Lambda function, give it the correct access permissions, and configure its run schedule.
+
 ## Create the Lambda function
 
 * Lambda > Functions > Create function
@@ -151,13 +153,13 @@ Run the test; it should report success and the billing output
 
 ## Add Triggers
 
-CloudWatch Events
-Configure triggers
-Create a new rule
-  Rule name: lambda_monthly_billing
-  Rule description: Running on the 3rd of the month
-  Rule type: Schedule expression
-  Schedule expression: `cron(0 0 3 * ? *)`  <- Syntax on this is a little wonky... need to have `?` for Day-of-month or Day-of-week
+* CloudWatch Events
+* Configure triggers
+* Create a new rule
+  * Rule name: lambda_monthly_billing
+  * Rule description: Running on the 3rd of the month
+  * Rule type: Schedule expression
+  *Schedule expression: `cron(0 0 3 * ? *)`  <- Syntax on this is a little wonky... need to have `?` for Day-of-month or Day-of-week
 
 
 # References
