@@ -161,7 +161,7 @@ In order to schedule the function to run automatically each month, we create a T
   * Rule name: lambda_monthly_billing
   * Rule description: Running on the 3rd of the month
   * Rule type: Schedule expression
-  *Schedule expression: `cron(0 0 3 * ? *)`  <- Syntax on this is a little wonky... need to have `?` for Day-of-month or Day-of-week
+  * Schedule expression: `cron(0 0 3 * ? *)`  <- Syntax on this is a little wonky... need to have `?` for Day-of-month or Day-of-week
 
 
 # References
